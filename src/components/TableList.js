@@ -15,23 +15,65 @@ import Button from '@material-ui/core/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+    root: {
+      maxWidth: "450px",
+      height: "275px",
+      margin:"5px",
     },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
     },
-    form: {
-      margin: 'auto',
-      width: '30%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
+    title: {
+      fontSize: 14,
     },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
+    pos: {
+      marginBottom: 12,
     },
+    typ: {
+      height:"50px"
+    }
+    
   }));
-  export default Home;
+  
+  const TableList= () => {
+    const classes = useStyles();
+   
+  
+    const errorMessage = (text) =>{
+      toast.error(text, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    }
+  
+    return (
+      <Container>
+      <div className="container">
+        <header className="jumbotron">
+          <h3>Table List</h3>
+        </header>
+          <div>
+          </div>
+      </div>
+      <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+      </Container>
+    );
+  };
+  export default TableList;

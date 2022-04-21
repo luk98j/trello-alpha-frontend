@@ -1,6 +1,6 @@
 
 const menuHeaderForAuthUsers =[
-    // {"/add-post": "Dodaj post"}
+    {"/tables": "Tablice"}
 ]
 
 export default menuHeaderForAuthUsers

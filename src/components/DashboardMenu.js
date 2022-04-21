@@ -135,11 +135,11 @@ const DashboardMenu = () => {
                   LogOut
                 </a>
                 </MenuItem>
-                <MenuItem >
+                {/* <MenuItem >
                 <a href="/tables" className={classes.menuItem} >
                   Tables
                 </a>
-                </MenuItem>
+                </MenuItem> */}
               </Menu>
               </div>
           ):(
@@ -152,11 +152,6 @@ const DashboardMenu = () => {
           <Button color="inherit">
             <Link to={"/register"} className={classes.menuTile}>
                 Rejestracja
-              </Link>
-          </Button>
-          <Button color="inherit">
-            <Link to={"/tables"} className={classes.menuTile}>
-                Tablice
               </Link>
           </Button>
           </div>

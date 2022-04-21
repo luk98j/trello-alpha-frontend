@@ -14,6 +14,8 @@ import { AddAlarmOutlined, CenterFocusStrong } from "@material-ui/icons";
 import Button from '@material-ui/core/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: "450px",
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
       <Container>
       <div className="container">
         <header className="jumbotron">
-          <h3>Table List</h3>
+          <h3>Lista Tablic</h3>
         </header>
           <div>
           </div>
@@ -73,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
               draggable
               pauseOnHover
             />
+             <Button color="inherit">
+             <Link to={"/create"} className={classes.menuTile}>
+                Stwórz Tablicę
+            </Link>
+          </Button>
       </Container>
     );
   };

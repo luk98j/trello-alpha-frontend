@@ -158,7 +158,6 @@ class Register extends React.Component {
                                 label="Hasło"
                                 required
                                 fullWidth
-                                variant="outlined"
                                 type={passwordIsMasked ? 'password' : 'text'}
                                 {...this.props}
                                 InputProps={{
@@ -185,7 +184,6 @@ class Register extends React.Component {
                                 required
                                 fullWidth
                                 label="Powtórz hasło"
-                                variant="outlined"
                                 name="repeatPassword"
                                 value={user.repeatPassword}
                                 type={passwordIsMasked ? 'password' : 'text'}

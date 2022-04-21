@@ -135,7 +135,11 @@ const DashboardMenu = () => {
                   LogOut
                 </a>
                 </MenuItem>
-                
+                {/* <MenuItem >
+                <a href="/tables" className={classes.menuItem} >
+                  Tables
+                </a>
+                </MenuItem> */}
               </Menu>
               </div>
           ):(

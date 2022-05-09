@@ -6,7 +6,8 @@ const API = {
         userName,
         title
     }),
-    getTrelloTable: (userName) => http.get('rest/api/private/trello/get-table?username='+userName)
+    getTrelloTable: (userName) => http.get('rest/api/private/trello/get-table?username='+userName),
+    getTrelloList: (table) => http.get('rest/api/private/trello/get-list?id='+table)
 }
 
 export default API;

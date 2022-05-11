@@ -13,6 +13,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ModalListCreation from '../modals/ModalListCreation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,11 +39,13 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
         textDecoration: "none",
         padding:"10px",
+        margin:"10px",
         backgroundColor:"#3f51b5",
 
     },
     cardView:{
-        minWidth: 275,
+        minWidth: 175,
+        minHeight: 400,
         padding: 15,
         margin: 10,
         backgroundColor: '#cccccc'
@@ -54,11 +57,14 @@ const Table= () => {
     const { id } = useParams()
     const classes = useStyles();
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [tableInfo, setTableInfo] = useState(undefined);
     const [table, setTables] = useState(null)
 
     useEffect(() => {
+        
         setCurrentUser(AuthService.getCurrentUser());
         if(table == null){
+            getTrelloTableInfo()
             getTableForUser()
         }
         console.log("XD")
@@ -68,17 +74,34 @@ const Table= () => {
         //   getTableForUser()
         // }
 
-    }, [table]);
+    }, [table, tableInfo]);
 
     const getTableForUser = () =>{
-        const user = AuthService.getCurrentUser()
-        const username = user.username
-        console.log(username)
         API.getTrelloList(id).then(
             (response) => {
                 console.log(response)
                 console.log(response.data)
                 setTables(response.data)
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                errorMessage(resMessage);
+            }
+        );
+    }
+
+    const getTrelloTableInfo = () =>{
+        API.getTrelloTableInfo(id).then(
+            (response) => {
+                console.log(response)
+                console.log(response.data)
+                setTableInfo(response.data)
             },
             (error) => {
                 const resMessage =
@@ -109,23 +132,29 @@ const Table= () => {
         <Container>
             <div className="container">
                 <Grid>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                         <Grid item ="xs">
                             <header className="jumbotron">
-                                <h3>Tablica {id}</h3>
+                                
+                                <h3>{tableInfo != undefined ?(
+                                    <div>{tableInfo.title}</div>
+                                ):(
+                                    <div></div>
+                                )}</h3>
                             </header>
                         </Grid>
                         <Grid item ="xs">
                             <div>
-                                <Button color="inherit">
-                                        Dodaj Listę
-                                </Button>
+                                <ModalListCreation id={id}/>
+                                {/* <Button className={classes.menuTile}>
+                                    Dodaj Listę
+                                </Button> */}
                             </div>
                         </Grid>
                     </Grid>
                 </Grid>
                 <div>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={4}>
                         {table && table.map((key) =>{
                             return (
                                 <div>

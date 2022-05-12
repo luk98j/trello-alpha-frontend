@@ -13,6 +13,10 @@ const API = {
         title,
         tableId
     }),
+    createTrelloCard: (title, listId) => http.post('rest/api/private/trello/add-card',{
+        title,
+        listId
+    }),
 }
 
 export default API;

@@ -14,7 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ModalListCreation from '../modals/ModalListCreation';
-
+import ModalCardCreation from '../modals/ModalCardCreation'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "450px",
@@ -165,10 +165,11 @@ const Table= () => {
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button size="big">
-                                                <Link to={"/table"} className={classes.menuTile} >
+                                            <ModalCardCreation id={key.id}/>
+                                            {/* <Button size="big">
+                                                {/* <Link to={"/table"} className={classes.menuTile} >
                                                     Dodaj kartę
-                                                </Link></Button>
+                                                </Link></Button> */} 
                                         </CardActions>
                                     </Card>
                                 </div>

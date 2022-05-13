@@ -42,6 +42,7 @@ export default function ModalCardCreation(props) {
 
     const createCard = () =>{
         if(title != undefined){
+            console.log(props)
             API.createTrelloCard(title, id).then(
                 (response) => {
                 correctMessage(response.data)
@@ -121,7 +122,7 @@ export default function ModalCardCreation(props) {
         <Fade in={open}>
             <div className={classes.paper}>
             <header className="jumbotron">
-                Podaj nazwe listy
+                Podaj nazwe karty
             </header>
             <ValidatorForm  className={classes.form}>
                     <Grid container spacing={3}>

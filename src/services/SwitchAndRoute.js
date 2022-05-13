@@ -5,6 +5,7 @@ import Home from "../components/Home";
 import TableList from "../components/TableList";
 import TableCreation from "../components/TableCreation";
 import Table from "../components/Table";
+import List from "../components/List"
 import { Switch, Route } from "react-router-dom";
 import React, { Component }  from 'react';
 
@@ -20,6 +21,7 @@ const SwitchAndRoute = () =>{
             <Route exact path="/tables" component={TableList}/>
             <Route exact path="/create" component={TableCreation}/>
             <Route exact path="/table/:id" component={Table}/>
+            <Route exact path="/list/:id" component={List}/>
         </Switch>
     )
 }

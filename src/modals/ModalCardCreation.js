@@ -141,7 +141,7 @@ export default function ModalCardCreation(props) {
                                 validators={['required']}
                             />
                         </Grid>
-                          <Button type="submit" onClick={createList} fullWidth variant="contained" color="primary" className={classes.submit}>Stwórz</Button>
+                          <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Stwórz</Button>
                         </Grid>
                 </ValidatorForm>
         

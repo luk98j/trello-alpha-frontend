@@ -1,6 +1,7 @@
 import React, { useState,useEffect, useRef } from "react";
 import { Container } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ModalCardCreation from '../modals/ModalCardCreation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,11 +39,13 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
         textDecoration: "none",
         padding:"10px",
+        margin:"10px",
         backgroundColor:"#3f51b5",
 
     },
     cardView:{
-        minWidth: 275,
+        minWidth: 175,
+        minHeight: 400,
         padding: 15,
         margin: 10,
         backgroundColor: '#cccccc'
@@ -49,14 +53,18 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const TableList= () => {
+const Table= () => {
+    const { id } = useParams()
     const classes = useStyles();
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [tableInfo, setTableInfo] = useState(undefined);
     const [table, setTables] = useState(null)
 
     useEffect(() => {
+        
         setCurrentUser(AuthService.getCurrentUser());
         if(table == null){
+            getTrelloTableInfo()
             getTableForUser()
         }
         console.log("XD")
@@ -66,17 +74,34 @@ const TableList= () => {
         //   getTableForUser()
         // }
 
-    }, [table]);
+    }, [table, tableInfo]);
 
     const getTableForUser = () =>{
-        const user = AuthService.getCurrentUser()
-        const username = user.username
-        console.log(username)
-        API.getTrelloTable(username).then(
+        API.getTrelloList(id).then(
             (response) => {
                 console.log(response)
                 console.log(response.data)
                 setTables(response.data)
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                errorMessage(resMessage);
+            }
+        );
+    }
+
+    const getTrelloTableInfo = () =>{
+        API.getTrelloTableInfo(id).then(
+            (response) => {
+                console.log(response)
+                console.log(response.data)
+                setTableInfo(response.data)
             },
             (error) => {
                 const resMessage =
@@ -107,25 +132,29 @@ const TableList= () => {
         <Container>
             <div className="container">
                 <Grid>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                         <Grid item ="xs">
                             <header className="jumbotron">
-                                <h3>Lista Tablic</h3>
+                                
+                                <h3>{tableInfo != undefined ?(
+                                    <div>{tableInfo.title}</div>
+                                ):(
+                                    <div></div>
+                                )}</h3>
                             </header>
                         </Grid>
                         <Grid item ="xs">
                             <div>
-                                <Button color="inherit">
-                                    <Link to={"/create"} className={classes.menuTile} >
-                                        Stwórz Tablicę
-                                    </Link>
-                                </Button>
+                                <ModalCardCreation id={id}/>
+                                {/* <Button className={classes.menuTile}>
+                                    Dodaj Listę
+                                </Button> */}
                             </div>
                         </Grid>
                     </Grid>
                 </Grid>
                 <div>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={4}>
                         {table && table.map((key) =>{
                             return (
                                 <div>
@@ -137,8 +166,8 @@ const TableList= () => {
                                         </CardContent>
                                         <CardActions>
                                             <Button size="big">
-                                                <Link to={"/table/"+key.id} className={classes.menuTile} >
-                                                    Pokaż
+                                                <Link to={"/list"} className={classes.menuTile} >
+                                                    Dodaj kartę
                                                 </Link></Button>
                                         </CardActions>
                                     </Card>
@@ -163,4 +192,4 @@ const TableList= () => {
         </Container>
     );
 };
-export default TableList;
+export default Table;

@@ -15,6 +15,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ModalListCreation from '../modals/ModalListCreation';
 import ModalCardCreation from '../modals/ModalCardCreation'
+import CardList from "./CardList";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "450px",
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardView:{
         minWidth: 175,
-        minHeight: 400,
+        minHeight: 700,
         padding: 15,
         margin: 10,
         backgroundColor: '#cccccc'
@@ -154,7 +156,7 @@ const Table= () => {
                     </Grid>
                 </Grid>
                 <div>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={1}>
                         {table && table.map((key) =>{
                             return (
                                 <div>
@@ -165,11 +167,14 @@ const Table= () => {
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
+                                            <Grid>
+                                            <CardList id={key.id} />
                                             <ModalCardCreation id={key.id}/>
                                             {/* <Button size="big">
                                                 {/* <Link to={"/table"} className={classes.menuTile} >
                                                     Dodaj kartę
                                                 </Link></Button> */} 
+                                                </Grid>
                                         </CardActions>
                                     </Card>
                                 </div>

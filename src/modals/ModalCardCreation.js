@@ -8,6 +8,7 @@ import API from "../services/API";
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import Grid from '@material-ui/core/Grid';
 import { ToastContainer, toast } from 'react-toastify';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,11 +22,15 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '35%',
-    height: '25%'
+    height: '65%'
   },
   p1:{
     margin:"10px",
-}
+    },
+    description:{
+        width:"100%",
+        border:"1px solid black"
+    }
 }));
 
 export default function ModalCardCreation(props) {
@@ -33,7 +38,7 @@ export default function ModalCardCreation(props) {
     const [open, setOpen] = React.useState(false);
     const [id, setId] = React.useState(null);
     const [title, setTitle] = useState(undefined);
-
+    const [description, setDescription] = useState(undefined)
     useEffect(()=>{
         if(props.id != null){
             setId(props.id)
@@ -43,7 +48,7 @@ export default function ModalCardCreation(props) {
     const createCard = () =>{
         if(title != undefined){
             console.log(props)
-            API.createTrelloCard(title, id).then(
+            API.createTrelloCard(title, id, description).then(
                 (response) => {
                 correctMessage(response.data)
                 // props.history.push("/table/"+id);
@@ -77,6 +82,11 @@ export default function ModalCardCreation(props) {
         const title = e.target.value;
         setTitle(title);
       };
+
+    const onChangeDescription = (e) =>{
+        const dsc = e.target.value;
+        setDescription(dsc);
+    }
 
     const errorMessage = (text) =>{
         toast.error(text, {
@@ -140,6 +150,16 @@ export default function ModalCardCreation(props) {
                                 onChange={onChangeTitle}
                                 errorMessages={['this field is required']}
                                 validators={['required']}
+                            />
+                            <TextField
+                                id="outlined-multiline-flexible"
+                                label="Opis karty"
+                                multiline
+                                //maxRows={10}
+                                rows={15}
+                                className={classes.description}
+                                value={description}
+                                onChange={onChangeDescription}
                             />
                         </Grid>
                           <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Stwórz</Button>

@@ -11,26 +11,26 @@ import { ToastContainer, toast } from 'react-toastify';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    width: '35%',
-    height: '65%'
-  },
-  p1:{
-    margin:"10px",
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        width: '35%',
+        height: '65%'
+    },
+    p1:{
+        margin:"10px",
     },
     description:{
         width:"100%",
         border:"1px solid black"
-    }
+    },
 }));
 
 export default function ModalCardCreation(props) {
@@ -50,25 +50,25 @@ export default function ModalCardCreation(props) {
             console.log(props)
             API.createTrelloCard(title, id, description).then(
                 (response) => {
-                correctMessage(response.data)
-                // props.history.push("/table/"+id);
-                window.location.reload();
+                    correctMessage(response.data)
+                    // props.history.push("/table/"+id);
+                    window.location.reload();
                 },
                 (error) => {
-                const resMessage =
-                    (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                errorMessage(resMessage);
+                    errorMessage(resMessage);
                 }
             );
         } else {
-          errorMessage("Title missing!");
+            errorMessage("Title missing!");
         }
-      }
+    }
 
     const handleOpen = () => {
         setOpen(true);
@@ -81,7 +81,7 @@ export default function ModalCardCreation(props) {
     const onChangeTitle = (e) => {
         const title = e.target.value;
         setTitle(title);
-      };
+    };
 
     const onChangeDescription = (e) =>{
         const dsc = e.target.value;
@@ -90,95 +90,95 @@ export default function ModalCardCreation(props) {
 
     const errorMessage = (text) =>{
         toast.error(text, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      }
-  
-      const correctMessage = (text) =>{
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    const correctMessage = (text) =>{
         toast.done(text, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-      }
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
 
     return (
         <div>
-        <Button type="button" onClick={handleOpen} variant="contained" color="primary" className={classes.p1}>
-            Dodaj kartę
-        </Button>
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-            timeout: 500,
-            }}
-        >
-        <Fade in={open}>
-            <div className={classes.paper}>
-            <header className="jumbotron">
-                Podaj nazwe karty
-            </header>
-            <ValidatorForm  className={classes.form}>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <TextValidator
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Nazwa Karty"
-                                name="tablename"
-                                autoComplete="tablename"
-                                autoFocus
-                                value={title}
-                                onChange={onChangeTitle}
-                                errorMessages={['this field is required']}
-                                validators={['required']}
-                            />
-                            <TextField
-                                id="outlined-multiline-flexible"
-                                label="Opis karty"
-                                multiline
-                                //maxRows={10}
-                                rows={15}
-                                className={classes.description}
-                                value={description}
-                                onChange={onChangeDescription}
-                            />
-                        </Grid>
-                          <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Stwórz</Button>
-                        </Grid>
-                </ValidatorForm>
-        
-            </div>
-            </Fade>
-        </Modal>
-        <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
+            <Button type="button" onClick={handleOpen} variant="contained" color="primary" className={classes.p1}>
+                Dodaj kartę
+            </Button>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <header className="jumbotron">
+                            Podaj nazwe karty
+                        </header>
+                        <ValidatorForm  className={classes.form}>
+                            <Grid container spacing={3}>
+                                <Grid item xs>
+                                    <TextValidator
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        label="Nazwa Karty"
+                                        name="tablename"
+                                        autoComplete="tablename"
+                                        autoFocus
+                                        value={title}
+                                        onChange={onChangeTitle}
+                                        errorMessages={['this field is required']}
+                                        validators={['required']}
+                                    />
+                                    <TextField
+                                        id="outlined-multiline-flexible"
+                                        label="Opis karty"
+                                        multiline
+                                        //maxRows={10}
+                                        rows={15}
+                                        className={classes.description}
+                                        value={description}
+                                        onChange={onChangeDescription}
+                                    />
+                                </Grid>
+                                <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Stwórz</Button>
+                            </Grid>
+                        </ValidatorForm>
+
+                    </div>
+                </Fade>
+            </Modal>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
             />
         </div>
     );

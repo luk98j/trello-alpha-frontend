@@ -18,7 +18,19 @@ const API = {
         listId: listId,
         description: description
     }),
+    editTrelloCard: (title, cardId, description) => http.post('rest/api/private/trello/edit-card',{
+        title: title,
+        cardId: cardId,
+        description: description
+    }),
     getTrelloCard: (id) => http.get('rest/api/private/trello/get-cards?id='+id),
+    getTrelloComment: (id) => http.get('rest/api/private/trello/get-comments?id='+id),
+    getTrelloTodo: (id) => http.get('rest/api/private/trello/get-todos?id='+id),
+    createTrelloComment: (cardId, userId, comment) => http.post('rest/api/private/trello/add-comment',{
+        cardId: cardId,
+        userId: userId,
+        comment: comment
+    }),
 }
 
 export default API;

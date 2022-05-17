@@ -14,53 +14,33 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ModalCardCreation from '../modals/ModalCardCreation';
+import ModalCardDescription from '../modals/ModalCardDescription';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        
-        height: "275px",
-        margin:"5px",
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-    typ: {
-        height:"50px"
-    },
-    menuTile: {
-        color: "white",
-        textDecoration: "none",
-        padding:"10px",
-        margin:"10px",
-        backgroundColor:"#3f51b5",
-
-    },
-    cardView:{
-        minWidth: 200,
-        minHeight: 200,
-        padding: '20px',
-        margin: '10px',
-        backgroundColor: '#cccccc',
-        border:'1px solid black',
-    },
     gridList: {
-        
-       height:'100%'
-      },
+        width: 300,
+    },
     container:{
-        width: '50%'
-    }
+        width: 300,
+    },
 
+    card: {
+        width: 280,
+        padding: "0px !important"
+    },
+    overrides: {
+        MuiCardActions: {
+            root: {
+                padding: 0,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                [theme.breakpoints.up(0)] : {
+                },
+            },
+        }
+    },
 }));
 
 export default function CardList(props){
@@ -110,26 +90,29 @@ export default function CardList(props){
     }
 
     return (
-        
-            <div className={classes.container}>
-                <div>
-                    <GridList className={classes.gridList}>
-                        {cards && cards.map((key) =>{
-                            return (
-                                <div>
-                                    <Card className={classes.cardView}>
-                                        <CardContent>
-                                            <Typography variant="h5" component="h2">
-                                                {key.title}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </div>
-                            )
-                        })}
-                    </GridList >
-                </div>
-                <ToastContainer
+        <div className={classes.container}>
+            <div>
+                <GridList cellHeight={100}  className={classes.gridList}>
+                    {cards && cards.map((key) =>{
+                        return (
+                            <div>
+                                <Card className={classes.card}>
+                                    <CardActions>
+                                        <Grid>
+                                            <ModalCardDescription title={key.title} description={key.description} id={key.id}/>
+                                            {/* <Button size="big">
+                                    {/* <Link to={"/table"} className={classes.menuTile} >
+                                        Dodaj kartę
+                                    </Link></Button> */}
+                                        </Grid>
+                                    </CardActions>
+                                </Card>
+                            </div>
+                        )
+                    })}
+                </GridList >
+            </div>
+            <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -140,8 +123,8 @@ export default function CardList(props){
                 draggable
                 pauseOnHover
             />
-            </div>
-           
+        </div>
+
 
     );
 };

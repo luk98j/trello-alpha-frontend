@@ -59,6 +59,7 @@ export default function ModalCardCreation(props) {
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description)
     const [comment, setComment] = useState(null)
+    const [todo, setTodo]=useState(null)
     const [comments, setComments] = useState(null)
     const [todos, setTodos] = useState(null)
     useEffect(()=>{
@@ -119,6 +120,31 @@ export default function ModalCardCreation(props) {
         }
     }
 
+    const createTodo = () =>{
+        if(title != undefined){
+            console.log(props)
+            API.createTrelloTodo(id, currentUser.id, todo).then(
+                (response) => {
+                    correctMessage(response.data)
+                    // props.history.push("/table/"+id);
+                    window.location.reload();
+                },
+                (error) => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+
+                    errorMessage(resMessage);
+                }
+            );
+        } else {
+            errorMessage("Title missing!");
+        }
+    }
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -139,6 +165,10 @@ export default function ModalCardCreation(props) {
     const onChangeComment = (e) =>{
         const dsc = e.target.value;
         setComment(dsc);
+    }
+    const onChangeTodo = (e) =>{
+        const dsc = e.target.value;
+        setTodo(dsc);
     }
 
     const getTodoFromCard = (id) =>{
@@ -259,6 +289,35 @@ export default function ModalCardCreation(props) {
                                     />
                                 </Grid>
                                 <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Edytuj</Button>
+                            </Grid>
+                        </ValidatorForm>
+                        <header className="jumbotron">
+                            ZADANIA
+                        </header>
+                        {todos && todos.map((key) =>{
+                            return (
+                                <div>
+                                    <Card className={classes.cardView}>
+                                        <CardContent>
+                                            <Typography variant="h5" component="h2">
+                                                {key.todo}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            )
+                        })}
+                        <ValidatorForm  className={classes.form}>
+                            <Grid container spacing={3}>
+                                <Grid item xs>
+                                    <input
+                                        label="Zadanie"
+                                        className={classes.description}
+                                        value={todo}
+                                        onChange={onChangeTodo}
+                                    />
+                                </Grid>
+                                <Button type="submit" onClick={createTodo} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj komentarz</Button>
                             </Grid>
                         </ValidatorForm>
                         <header className="jumbotron">

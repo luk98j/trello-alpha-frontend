@@ -31,6 +31,12 @@ const API = {
         userId: userId,
         comment: comment
     }),
+
+createTrelloTodo: (cardId, userId, todo) => http.post('rest/api/private/trello/add-todo',{
+    cardId: cardId,
+    userId: userId,
+    todo: todo
+}),
 }
 
 export default API;

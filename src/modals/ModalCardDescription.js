@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow:'scroll'
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
@@ -27,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         width: '35%',
-        height: '65%'
+        height: 'auto',
     },
     p1:{
         margin:"10px",
     },
     description:{
         width:"100%",
-        border:"1px solid black"
+        border:"1px solid gray"
     },
     card: {
         maxWidth: 300,
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "left",
         padding: theme.spacing.unit * 3,
     },
+  
 }));
 
 export default function ModalCardCreation(props) {
@@ -291,9 +293,11 @@ export default function ModalCardCreation(props) {
                                 <Button type="submit" onClick={createCard} fullWidth variant="contained" color="primary" className={classes.submit}>Edytuj</Button>
                             </Grid>
                         </ValidatorForm>
+                        <br></br>
                         <header className="jumbotron">
                             ZADANIA
                         </header>
+                        <br></br>
                         {todos && todos.map((key) =>{
                             return (
                                 <div>
@@ -317,12 +321,14 @@ export default function ModalCardCreation(props) {
                                         onChange={onChangeTodo}
                                     />
                                 </Grid>
-                                <Button type="submit" onClick={createTodo} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj komentarz</Button>
+                                <Button type="submit" onClick={createTodo} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
                             </Grid>
                         </ValidatorForm>
+                        <br></br>
                         <header className="jumbotron">
                             KOMENTARZE
                         </header>
+                        <br></br>
                         {comments && comments.map((key) =>{
                             return (
                                 <div>

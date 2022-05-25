@@ -26,6 +26,8 @@ const API = {
     getTrelloCard: (id) => http.get('rest/api/private/trello/get-cards?id='+id),
     getTrelloComment: (id) => http.get('rest/api/private/trello/get-comments?id='+id),
     getTrelloTodo: (id) => http.get('rest/api/private/trello/get-todos?id='+id),
+    getTrelloTodoTask: (id) => http.get('rest/api/private/trello/get-tasks?id='+id),
+
     createTrelloComment: (cardId, userId, comment) => http.post('rest/api/private/trello/add-comment',{
         cardId: cardId,
         userId: userId,
@@ -36,6 +38,11 @@ createTrelloTodo: (cardId, userId, todo) => http.post('rest/api/private/trello/a
     cardId: cardId,
     userId: userId,
     todo: todo
+}),
+createTrelloTodoTask: (cardId, userId, todoTask) => http.post('rest/api/private/trello/add-todotask',{
+    cardId: cardId,
+    userId: userId,
+    todoTask: todoTask
 }),
 }
 

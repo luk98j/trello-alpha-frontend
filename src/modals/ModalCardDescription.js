@@ -69,6 +69,8 @@ export default function ModalCardCreation(props) {
     const [todo, setTodo]=useState(null)
     const [comments, setComments] = useState(null)
     const [todos, setTodos] = useState(null)
+    const [todoTask, setTodoTask] = useState(null)
+    const [todoTasks, setTodoTasks] = useState(null)
     useEffect(()=>{
         if(props.id != null){
             setId(props.id);

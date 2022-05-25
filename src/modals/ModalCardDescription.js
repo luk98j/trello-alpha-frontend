@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "left",
         padding: theme.spacing.unit * 3,
     },
+    cardView:{
+        textAlign:'left',
+        border:"1px solid gray"
+
+    }
   
 }));
 
@@ -303,7 +308,7 @@ export default function ModalCardCreation(props) {
                                 <div>
                                     <Card className={classes.cardView}>
                                         <CardContent>
-                                            <Typography variant="h5" component="h2">
+                                            <Typography variant="h5" component="h5">
                                                 {key.todo}
                                             </Typography>
                                         </CardContent>
@@ -334,7 +339,7 @@ export default function ModalCardCreation(props) {
                                 <div>
                                     <Card className={classes.cardView}>
                                         <CardContent>
-                                            <Typography variant="h5" component="h2">
+                                            <Typography variant="h7" component="h7">
                                                 {key.comment}
                                             </Typography>
                                         </CardContent>

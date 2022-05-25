@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         width: '35%',
-        height: '65%'
+        height: 'auto'
     },
     p1:{
         margin:"10px",

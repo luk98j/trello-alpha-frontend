@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         width: '35%',
         height: 'auto',
+        overflow:'scroll'
+    },
+    jumbotron:{
+      overflow:'scroll'
     },
     p1:{
         margin:"10px",
@@ -45,15 +49,21 @@ const useStyles = makeStyles((theme) => ({
         "&:hover": {
             boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
         },
+        
     },
     content: {
         textAlign: "left",
         padding: theme.spacing.unit * 3,
+       
     },
     cardView:{
         textAlign:'left',
-        border:"1px solid gray"
+        border:"1px solid gray",
 
+    },
+    submit:{
+        width:'20%',
+        height:'20%'
     }
   
 }));
@@ -71,11 +81,13 @@ export default function ModalCardCreation(props) {
     const [todos, setTodos] = useState(null)
     const [todoTask, setTodoTask] = useState(null)
     const [todoTasks, setTodoTasks] = useState(null)
+    
     useEffect(()=>{
         if(props.id != null){
             setId(props.id);
             getCommentFromCard(props.id);
             getTodoFromCard(props.id);
+            getTaskFromCard(props.id);
         }
     },[])
 
@@ -132,7 +144,32 @@ export default function ModalCardCreation(props) {
     const createTodo = () =>{
         if(title != undefined){
             console.log(props)
-            API.createTrelloTodo(id, currentUser.id, todo).then(
+            API.createTrelloTodo(id, todo).then(
+                (response) => {
+                    correctMessage(response.data)
+                    // props.history.push("/table/"+id);
+                    window.location.reload();
+                },
+                (error) => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+
+                    errorMessage(resMessage);
+                }
+            );
+        } else {
+            errorMessage("Title missing!");
+        }
+    }
+
+    const createTodoTask = () =>{
+        if(title != undefined){
+            console.log(props)
+            API.createTrelloTodoTask(id, todoTask).then(
                 (response) => {
                     correctMessage(response.data)
                     // props.history.push("/table/"+id);
@@ -179,6 +216,10 @@ export default function ModalCardCreation(props) {
         const dsc = e.target.value;
         setTodo(dsc);
     }
+    const onChangeTodoTask = (e) =>{
+        const dsc = e.target.value;
+        setTodoTask(dsc);
+    }
 
     const getTodoFromCard = (id) =>{
         API.getTrelloTodo(id).then(
@@ -186,6 +227,26 @@ export default function ModalCardCreation(props) {
                 console.log(response)
                 console.log(response.data)
                 setTodos(response.data)
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                errorMessage(resMessage);
+            }
+        );
+    }
+   
+    const getTaskFromCard = (id) =>{
+        API.getTrelloTodoTask(id).then(
+            (response) => {
+                console.log(response)
+                console.log(response.data)
+                setTodoTasks(response.data)
             },
             (error) => {
                 const resMessage =
@@ -314,6 +375,8 @@ export default function ModalCardCreation(props) {
                                                 {key.todo}
                                             </Typography>
                                         </CardContent>
+                                        
+                                        <Button type="submit" onClick={createTodoTask} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
                                     </Card>
                                 </div>
                             )
@@ -328,7 +391,7 @@ export default function ModalCardCreation(props) {
                                         onChange={onChangeTodo}
                                     />
                                 </Grid>
-                                <Button type="submit" onClick={createTodo} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
+                                <Button type="submit" onClick={createTodo} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Listę Zadań</Button>
                             </Grid>
                         </ValidatorForm>
                         <br></br>

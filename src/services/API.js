@@ -34,15 +34,14 @@ const API = {
         comment: comment
     }),
 
-createTrelloTodo: (cardId, userId, todo) => http.post('rest/api/private/trello/add-todo',{
+createTrelloTodo: (cardId, Name) => http.post('rest/api/private/trello/add-todo',{
     cardId: cardId,
-    userId: userId,
-    todo: todo
+    Name: Name
 }),
-createTrelloTodoTask: (cardId, userId, todoTask) => http.post('rest/api/private/trello/add-todotask',{
+createTrelloTodoTask: (cardId, Name,checked) => http.post('rest/api/private/trello/add-todotask',{
     cardId: cardId,
-    userId: userId,
-    todoTask: todoTask
+    Name:Name,
+    checked:checked
 }),
 }
 

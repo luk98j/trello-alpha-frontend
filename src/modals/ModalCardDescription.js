@@ -76,9 +76,9 @@ export default function ModalCardCreation(props) {
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description)
     const [comment, setComment] = useState(null)
-    const [todo, setTodo]=useState(null)
+    const [Name, setName]=useState(null)
     const [comments, setComments] = useState(null)
-    const [todos, setTodos] = useState(null)
+    const [Names, setNames] = useState(null)
     const [todoTask, setTodoTask] = useState(null)
     const [todoTasks, setTodoTasks] = useState(null)
     
@@ -144,7 +144,7 @@ export default function ModalCardCreation(props) {
     const createTodo = () =>{
         if(title != undefined){
             console.log(props)
-            API.createTrelloTodo(id, todo).then(
+            API.createTrelloTodo(id, Name).then(
                 (response) => {
                     correctMessage(response.data)
                     // props.history.push("/table/"+id);
@@ -214,7 +214,7 @@ export default function ModalCardCreation(props) {
     }
     const onChangeTodo = (e) =>{
         const dsc = e.target.value;
-        setTodo(dsc);
+        setName(dsc);
     }
     const onChangeTodoTask = (e) =>{
         const dsc = e.target.value;
@@ -226,7 +226,7 @@ export default function ModalCardCreation(props) {
             (response) => {
                 console.log(response)
                 console.log(response.data)
-                setTodos(response.data)
+                setNames(response.data)
             },
             (error) => {
                 const resMessage =
@@ -366,13 +366,13 @@ export default function ModalCardCreation(props) {
                             ZADANIA
                         </header>
                         <br></br>
-                        {todos && todos.map((key) =>{
+                        {Names && Names.map((key) =>{
                             return (
                                 <div>
                                     <Card className={classes.cardView}>
                                         <CardContent>
                                             <Typography variant="h5" component="h5">
-                                                {key.todo}
+                                                {key.Name}
                                             </Typography>
                                         </CardContent>
                                         
@@ -387,7 +387,7 @@ export default function ModalCardCreation(props) {
                                     <input
                                         label="Zadanie"
                                         className={classes.description}
-                                        value={todo}
+                                        value={Name}
                                         onChange={onChangeTodo}
                                     />
                                 </Grid>

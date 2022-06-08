@@ -7,6 +7,7 @@ const API = {
         title
     }),
     getTrelloTable: (userName) => http.get('rest/api/private/trello/get-table?username='+userName),
+    getSharedTrelloTable: (userName) => http.get('rest/api/private/trello/get-shared-tables?username='+userName),
     getTrelloList: (table) => http.get('rest/api/private/trello/get-list?id='+table),
     getTrelloTableInfo: (table) => http.get('rest/api/private/trello/get-info-table?id='+table),
     createTrelloList: (title, tableId) => http.post('rest/api/private/trello/add-list',{
@@ -43,6 +44,15 @@ createTrelloTodoTask: (cardId, Name,checked) => http.post('rest/api/private/trel
     cardId: cardId,
     Name:Name,
     checked:checked
+}),
+addSharedUser:(userName, tableId) => http.post('rest/api/private/trello/post-shared-table',{
+    userName: userName,
+    tableId:tableId,
+}),
+getSharedUser:(id) => http.get('rest/api/private/trello/get-user-shared-table?id='+id),
+deleteSharedUser:(userName, tableId) => http.post('rest/api/private/trello/delete-user-from-shared-table',{
+    userName: userName,
+    tableId:tableId,
 }),
 }
 

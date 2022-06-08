@@ -53,11 +53,13 @@ const TableList= () => {
     const classes = useStyles();
     const [currentUser, setCurrentUser] = useState(undefined);
     const [table, setTables] = useState(null)
+    const [sharedTable, setSharedTable] = useState(null)
 
     useEffect(() => {
         setCurrentUser(AuthService.getCurrentUser());
         if(table == null){
             getTableForUser()
+            getSharedTableForUser()
         }
         console.log("XD")
         // if(currentUser == undefined){
@@ -77,6 +79,28 @@ const TableList= () => {
                 console.log(response)
                 console.log(response.data)
                 setTables(response.data)
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                errorMessage(resMessage);
+            }
+        );
+    }
+    const getSharedTableForUser = () =>{
+        const user = AuthService.getCurrentUser()
+        const username = user.username
+        console.log(username)
+        API.getSharedTrelloTable(username).then(
+            (response) => {
+                console.log(response)
+                console.log(response.data)
+                setSharedTable(response.data)
             },
             (error) => {
                 const resMessage =
@@ -139,7 +163,8 @@ const TableList= () => {
                                             <Button size="big">
                                                 <Link to={"/table/"+key.id} className={classes.menuTile} >
                                                     Pokaż
-                                                </Link></Button>
+                                                </Link>
+                                            </Button>
                                         </CardActions>
                                     </Card>
                                 </div>
@@ -148,6 +173,47 @@ const TableList= () => {
                     </Grid>
                 </div>
             </div>
+            {sharedTable && sharedTable.length>0 ? (
+                     <div className="container">
+                     <Grid>
+                         <Grid container spacing={3}>
+                             <Grid item ="xs">
+                                 <header className="jumbotron">
+                                     <h3>Lista udostępnionych tablic</h3>
+                                 </header>
+                             </Grid>
+                             
+                         </Grid>
+                     </Grid>
+                     <div>
+                         <Grid container spacing={1}>
+                             {sharedTable && sharedTable.map((key) =>{
+                                 return (
+                                     <div>
+                                         <Card className={classes.cardView}>
+                                             <CardContent>
+                                                 <Typography variant="h5" component="h2">
+                                                     {key.title}
+                                                 </Typography>
+                                             </CardContent>
+                                             <CardActions>
+                                                 <Button size="big">
+                                                     <Link to={"/table/"+key.id} className={classes.menuTile} >
+                                                         Pokaż
+                                                     </Link>
+                                                 </Button>
+                                             </CardActions>
+                                         </Card>
+                                     </div>
+                                 )
+                             })}
+                         </Grid>
+                     </div>
+                 </div>
+            ):(
+                <div></div>
+            )}
+       
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

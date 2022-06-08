@@ -15,6 +15,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ModalListCreation from '../modals/ModalListCreation';
 import ModalCardCreation from '../modals/ModalCardCreation'
+import ModalUserShared from '../modals/ModalUserShared'
+import ModalSharedUserList from '../modals/ModalSharedUserList'
 import CardList from "./CardList";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
         padding: 15,
         margin: 10,
         backgroundColor: '#cccccc'
+    },
+    marginTen:{
+        margin:"10px"
+    },
+    marginTen:{
+        margin:"10px",
+        padding: "10px",
+        border: "1px solid black"
     }
 
 }));
@@ -69,7 +79,8 @@ const Table= () => {
             getTrelloTableInfo()
             getTableForUser()
         }
-        console.log("XD")
+        console.log(tableInfo)
+        console.log(table)
         // if(currentUser == undefined){
 
         //   console.log(AuthService.getCurrentUser())
@@ -146,13 +157,40 @@ const Table= () => {
                             </header>
                         </Grid>
                         <Grid item ="xs">
+                            <Grid>
                             <div>
                                 <ModalListCreation id={id}/>
                                 {/* <Button className={classes.menuTile}>
                                     Dodaj Listę
                                 </Button> */}
                             </div>
+                            </Grid>
                         </Grid>
+                        {tableInfo && tableInfo.owner == currentUser.username ?(
+                            
+                                <div className={classes.marginTen}>
+                                <Grid container spacing={1}>
+                                <Grid item ="xs">
+                                    <ModalUserShared id={id}/>
+                                </Grid>
+                                <Grid item ="xs">
+                                    <ModalSharedUserList id={id}/>
+                                </Grid>
+                                </Grid>
+                                    </div>
+                        ):(
+                            <div>
+                                {tableInfo && tableInfo.owner != undefined ? (
+                                    <div className={classes.marginTen}>
+                                        Tablica udostępniona przez: <b>{tableInfo.owner}</b>
+                                    </div>
+                                ):(
+                                    <div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                     </Grid>
                 </Grid>
                 <div>

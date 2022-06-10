@@ -82,6 +82,7 @@ export default function ModalCardCreation(props) {
     const [todoTask, setTodoTask] = useState("task")
     const [todoTasks, setTodoTasks] = useState(null)
     
+    
     useEffect(()=>{
         if(props.id != null){
             setId(props.id);
@@ -374,7 +375,7 @@ export default function ModalCardCreation(props) {
                                                 {key.name}
                                             </Typography>
                                         </CardContent>
-                                        
+                                
                                         {key.trelloTodoTaskSet.map((key) =>{
                                             return (
                                                 <div>
@@ -388,8 +389,17 @@ export default function ModalCardCreation(props) {
                                                 </div>
                                             )
                                         })}
-                                        
+                                         <Grid container spacing={3}>
+                                <Grid item xs>
+                                    <input
+                                        label="Zad"
+                                        className={classes.description}
+                                        value={Name}
+                                        onChange={onChangeTodoTask}
+                                    />
+                                        </Grid>
                                         <Button type="submit" onClick={() => createTodoTask(key.id)} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
+                                        </Grid>
                                     </Card>
                                 </div>
                             )

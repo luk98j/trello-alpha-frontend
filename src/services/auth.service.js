@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/rest/api/auth/";
+const API_URL = "https://trello-alpha-backend-dev.herokuapp.com/rest/api/auth/";
 
 class AuthService {
   login(username, password) {

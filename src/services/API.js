@@ -40,8 +40,9 @@ createTrelloTodo: (cardId, Name) => http.post('rest/api/private/trello/add-todo'
     Name: Name,
   
 }),
-createTrelloTodoTask: (cardId, Name,checked) => http.post('rest/api/private/trello/add-todotask',{
+createTrelloTodoTask: (cardId, todoTaskId, Name ,checked) => http.post('rest/api/private/trello/add-todotask',{
     cardId: cardId,
+    todoTaskId: todoTaskId,
     Name:Name,
     checked:checked
 }),

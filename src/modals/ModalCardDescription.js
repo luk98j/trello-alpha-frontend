@@ -79,7 +79,7 @@ export default function ModalCardCreation(props) {
     const [Name, setName]=useState(null)
     const [comments, setComments] = useState(null)
     const [Names, setNames] = useState(null)
-    const [todoTask, setTodoTask] = useState(null)
+    const [todoTask, setTodoTask] = useState("task")
     const [todoTasks, setTodoTasks] = useState(null)
     
     useEffect(()=>{
@@ -87,7 +87,6 @@ export default function ModalCardCreation(props) {
             setId(props.id);
             getCommentFromCard(props.id);
             getTodoFromCard(props.id);
-            getTaskFromCard(props.id);
         }
     },[])
 
@@ -166,10 +165,10 @@ export default function ModalCardCreation(props) {
         }
     }
 
-    const createTodoTask = () =>{
+    const createTodoTask = (todoId) =>{
         if(title != undefined){
             console.log(props)
-            API.createTrelloTodoTask(id, todoTask).then(
+            API.createTrelloTodoTask(id, todoId, todoTask, false).then(
                 (response) => {
                     correctMessage(response.data)
                     // props.history.push("/table/"+id);
@@ -241,7 +240,7 @@ export default function ModalCardCreation(props) {
         );
     }
    
-    const getTaskFromCard = (id) =>{
+    const getTaskFromTodo = (id) =>{
         API.getTrelloTodoTask(id).then(
             (response) => {
                 console.log(response)
@@ -372,11 +371,25 @@ export default function ModalCardCreation(props) {
                                     <Card className={classes.cardView}>
                                         <CardContent>
                                             <Typography variant="h5" component="h5">
-                                                {key.Name}
+                                                {key.name}
                                             </Typography>
                                         </CardContent>
                                         
-                                        <Button type="submit" onClick={createTodoTask} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
+                                        {key.trelloTodoTaskSet.map((key) =>{
+                                            return (
+                                                <div>
+                                                    <Card className={classes.cardView}>
+                                                        <CardContent>
+                                                            <Typography variant="h5" component="h5">
+                                                                {key.name}
+                                                            </Typography>
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            )
+                                        })}
+                                        
+                                        <Button type="submit" onClick={() => createTodoTask(key.id)} fullWidth variant="contained" color="primary" className={classes.submit}>Dodaj Zadanie</Button>
                                     </Card>
                                 </div>
                             )
